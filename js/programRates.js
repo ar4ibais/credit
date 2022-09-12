@@ -1,7 +1,5 @@
 import { percentFormatter } from "./formatters.js";
 
-
-console.log(percentFormatter.format(0.567));
 // Ставки по ипотеке
 const programBase = 0.12,
       programIt = 0.047,
@@ -19,3 +17,17 @@ document.querySelector('#base-text').textContent = percentFormatter.format(progr
 document.querySelector('#it-text').textContent = percentFormatter.format(programIt);
 document.querySelector('#gov-text').textContent = percentFormatter.format(programGov);
 document.querySelector('#zero-text').textContent = percentFormatter.format(programZero);
+
+// Отображение выбранной ставки
+const programInputs = document.querySelectorAll('input[name="program"]'),
+      totalPercent = document.querySelector('#total-percent');
+
+programInputs.forEach(input => {
+    if (input.checked) {
+        totalPercent.textContent = percentFormatter.format(input.value);
+    }
+
+    input.addEventListener('click', function() {
+        totalPercent.textContent = percentFormatter.format(this.value);
+    });
+});
