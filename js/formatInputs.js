@@ -37,3 +37,30 @@ function calcMortgage() {
     
     totalMonthPayment.textContent = priceFormatterDecimals.format(monthPayment);
 }
+
+let sliderCost = document.querySelector('#slider-cost');
+
+noUiSlider.create(sliderCost, {
+    start: 12000000,
+    connect: 'lower',
+    step: 100000,
+    range: {
+        'min': 375000,
+        '50%': [10000000, 1000000],
+        'max': 100000000
+    },
+    format: wNumb({
+        decimals: 0,
+        thousand: ' ',
+        suffix: ''
+    })
+});
+
+sliderCost.noUiSlider.on('update', function() {
+    const sliderValue = parseInt(sliderCost.noUiSlider.get(true));
+
+    inputCost.value = sliderValue;
+
+    cleaveCost.setRawValue(sliderValue);
+    calcMortgage();
+})
